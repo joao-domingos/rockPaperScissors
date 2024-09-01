@@ -1,0 +1,14 @@
+body {
+    background-color: pink;
+    text-align: center;
+}
+
+button {
+    background-color: white;
+    padding: 15px;
+    font-size: larger;
+}
+
+button:hover {
+    background-color: red;
+}

@@ -1,42 +1,44 @@
+// escolher aleatoriamente a opcao do pc
 function getComputedChoice() {
     const escolhaPC = Math.random();
 
     if (escolhaPC < 1/3) {
-        return 'pedra';
+        return 'rock';
     } else if (escolhaPC < 2/3) {
-        return 'papel';
+        return 'paper';
     } else {
-        return 'tesoura';
+        return 'scissors';
     }
 }
 
+// escolher a opcao do humano baseado no texto de um dos botoes
 function getHumanChoice(button) {
     return button.textContent;
 }
 
-
+// rodar uma rodada usando como parametro a escolha do humano e do pc
 function playRound(humanChoice, computerChoice) {
     switch (humanChoice) {
-        case 'pedra':
-            if (computerChoice === 'pedra') {
+        case 'rock':
+            if (computerChoice === 'rock') {
                 return 'empate';
-            } else if (computerChoice === 'papel') {
+            } else if (computerChoice === 'paper') {
                 return 'maquina';
             } else {
                 return 'humano';
             }
-        case 'papel':
-            if (computerChoice === 'pedra') {
+        case 'paper':
+            if (computerChoice === 'rock') {
                 return 'humano';
-            } else if (computerChoice === 'papel') {
+            } else if (computerChoice === 'paper') {
                 return 'empate';
             } else {
                 return 'maquina';
             }
-        case 'tesoura':
-            if (computerChoice === 'pedra') {
+        case 'scissors':
+            if (computerChoice === 'rock') {
                 return 'maquina';
-            } else if (computerChoice === 'papel') {
+            } else if (computerChoice === 'paper') {
                 return 'humano';
             } else {
                 return 'empate';
@@ -46,11 +48,7 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-const body = document.querySelector("body");
-body.style.backgroundColor = "blue"
-
-const ui = document.createElement("div");
-
+// pick all buttons with the class btnPlay and then run the game using click as a event listener
 const btnPlay = document.querySelectorAll(".btnPlay");
 
 btnPlay.forEach(button => {
@@ -65,5 +63,3 @@ btnPlay.forEach(button => {
     });
     
 });
-
-body.appendChild(ui);
