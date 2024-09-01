@@ -15,12 +15,7 @@ function getComputedChoice() {
 console.log(getComputedChoice());
 
 function getHumanChoice() {
-    let userInput = prompt("escolha entre pedra, papel ou tesoura:").toLowerCase();
-    const validChoices = ['pedra', 'papel', 'tesoura'];
-    while (!validChoices.includes(userInput)) {
-        userInput = prompt("Escolha inválida.\nEscolha entre pedra, papel ou tesoura:").toLowerCase().trim();
-    }
-    return userInput;
+    return "pedra";
 }
 
 
@@ -55,37 +50,26 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function playGame() {
-    
-    let humanScore = 0;
-    let computerScore = 0;
+const body = document.querySelector("body");
+body.style.backgroundColor = "blue"
 
-    for (let i = 0; i < 5; i++) {
-        let userChoice = getHumanChoice();
-        let pcChoice = getComputedChoice();
-        let result = playRound(userChoice, pcChoice);
+const ui = document.createElement("div");
 
-        if (result === 'humano') {
-            console.log(`Rodada ${i + 1}: Você ganhou esta rodada!`);
-            humanScore++;
-        } else if (result === 'maquina') {
-            console.log(`Rodada ${i + 1}: A máquina ganhou esta rodada.`);
-            computerScore++;
-        } else if (result === 'empate') {
-            console.log(`Rodada ${i + 1}: Empate.`);
-        } else {
-            console.log(`Rodada ${i + 1}: Erro.`);
-        }
-    }
+//test com 1 botao antes de fazer o resto
+const btn1 = document.createElement("button");
+btn1.textContent = "pedra";
+//a ideia é que o playround use como parametro um dos botoes que o usuario clicou e getCOmputedCHoice
+btn1.addEventListener("click", function() {
+    const userChoice = getHumanChoice();
+    const pcChoice = getComputedChoice();
+    const result = playRound(userChoice, pcChoice);
 
-    console.log(`\nPontuação final: Você ${humanScore} - Máquina ${computerScore}`);
-    if (humanScore > computerScore) {
-        console.log("Você venceu o jogo!");
-    } else if (computerScore > humanScore) {
-        console.log("A máquina venceu o jogo!");
-    } else {
-        console.log("O jogo terminou empatado!");
-    }
-}
+    // Exibe o resultado no console
+    console.log(`Você escolheu ${userChoice}`);
+    console.log(`A máquina escolheu ${pcChoice}`);
+    console.log(`Resultado: ${result}`);
+});
 
-playGame();
+
+body.appendChild(ui);
+ui.appendChild(btn1);
