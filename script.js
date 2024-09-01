@@ -1,5 +1,3 @@
-console.log("Hello World")
-
 function getComputedChoice() {
     const escolhaPC = Math.random();
 
@@ -12,10 +10,8 @@ function getComputedChoice() {
     }
 }
 
-console.log(getComputedChoice());
-
-function getHumanChoice() {
-    return "pedra";
+function getHumanChoice(button) {
+    return button.textContent;
 }
 
 
@@ -55,21 +51,19 @@ body.style.backgroundColor = "blue"
 
 const ui = document.createElement("div");
 
-//test com 1 botao antes de fazer o resto
-const btn1 = document.createElement("button");
-btn1.textContent = "pedra";
-//a ideia é que o playround use como parametro um dos botoes que o usuario clicou e getCOmputedCHoice
-btn1.addEventListener("click", function() {
-    const userChoice = getHumanChoice();
-    const pcChoice = getComputedChoice();
-    const result = playRound(userChoice, pcChoice);
+const btnPlay = document.querySelectorAll(".btnPlay");
 
-    // Exibe o resultado no console
-    console.log(`Você escolheu ${userChoice}`);
-    console.log(`A máquina escolheu ${pcChoice}`);
-    console.log(`Resultado: ${result}`);
+btnPlay.forEach(button => {
+    button.addEventListener("click", function() {
+        const userChoice = getHumanChoice(button);
+        const pcChoice = getComputedChoice();
+        const result = playRound(userChoice, pcChoice);
+    
+        console.log(`Você escolheu ${userChoice}`);
+        console.log(`A máquina escolheu ${pcChoice}`);
+        console.log(`Resultado: ${result}`);
+    });
+    
 });
 
-
 body.appendChild(ui);
-ui.appendChild(btn1);
