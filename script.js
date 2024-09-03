@@ -48,8 +48,36 @@ function playRound(userChoice, pcChoice) {
     }
 }
 
-function winner(player) {
+function showModal(headerMessage, winner) {
+    const modal = document.getElementById("myModal");
+    const header = document.getElementById("modalHeader");
+    const body = document.getElementById("modalBody");
 
+    header.textContent = headerMessage;
+    body.textContent = `${winner} won the game!`;
+    modal.style.display = "block";
+
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+}
+
+function reset() {
+    runningScoreUser = 0;
+    runningScorePC = 0;
+    displayResult.textContent = "";
+    displayCount.textContent = "";
 }
 
 const displayResult = document.createElement("div");
@@ -87,16 +115,14 @@ btnPlay.forEach(button => {
         
         // showing results / logs
         displayResult.textContent = `you choose: ${userChoice} / pc choose: ${pcChoice} / winner: ${result}`;
-        displayCount.textContent = `user: ${runningScoreUser} / pc: ${runningScorePC}`;[
-        ]
+        displayCount.textContent = `user: ${runningScoreUser} / pc: ${runningScorePC}`;
         
-        if (runningScorePC == 5 || runningScoreUser == 5) {
-            //need to implement a show winner
-
-            runningScorePC = 0;
-            runningScoreUser = 0;
-            displayCount.textContent = "";
-            displayResult.textContent = "";
+        if (runningScoreUser == 5) {
+            showModal('Congratulations!!!', 'you');
+            reset();
+        } else if (runningScorePC == 5) {
+            showModal('you almost got it!!!', 'pc');
+            reset();
         }
 
     });
