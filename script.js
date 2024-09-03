@@ -11,60 +11,93 @@ function getComputedChoice() {
     }
 }
 
-// escolher a opcao do humano baseado no texto de um dos botoes
-function getHumanChoice(button) {
+// escolher a opcao do user baseado no texto de um dos botoes
+function getUserChoice(button) {
     return button.textContent;
 }
 
-// rodar uma rodada usando como parametro a escolha do humano e do pc
-function playRound(humanChoice, computerChoice) {
-    switch (humanChoice) {
+// rodar uma rodada usando como parametro a escolha do user e do pc
+function playRound(userChoice, pcChoice) {
+    switch (userChoice) {
         case 'rock':
-            if (computerChoice === 'rock') {
-                return 'empate';
-            } else if (computerChoice === 'paper') {
-                return 'maquina';
+            if (pcChoice === 'rock') {
+                return 'draw';
+            } else if (pcChoice === 'paper') {
+                return 'pc';
             } else {
-                return 'humano';
+                return 'user';
             }
         case 'paper':
-            if (computerChoice === 'rock') {
-                return 'humano';
-            } else if (computerChoice === 'paper') {
-                return 'empate';
+            if (pcChoice === 'rock') {
+                return 'user';
+            } else if (pcChoice === 'paper') {
+                return 'draw';
             } else {
-                return 'maquina';
+                return 'pc';
             }
         case 'scissors':
-            if (computerChoice === 'rock') {
-                return 'maquina';
-            } else if (computerChoice === 'paper') {
-                return 'humano';
+            if (pcChoice === 'rock') {
+                return 'pc';
+            } else if (pcChoice === 'paper') {
+                return 'user';
             } else {
-                return 'empate';
+                return 'draw';
             }
         default:
             return 'erro';
     }
 }
 
+function winner(player) {
+
+}
+
 const displayResult = document.createElement("div");
-displayResult.textContent = "test";
+displayResult.textContent = "";
 document.body.appendChild(displayResult);
+
+const displayCount = document.createElement("p");
+displayCount.textContent = "";
+document.body.appendChild(displayCount);
 
 // pick all buttons with the class btnPlay and then run the game using click as a event listener
 const btnPlay = document.querySelectorAll(".btnPlay");
 
+
+let runningScoreUser = 0;
+let runningScorePC = 0;
 btnPlay.forEach(button => {
     button.addEventListener("click", function() {
-        const userChoice = getHumanChoice(button);
+        const userChoice = getUserChoice(button);
         const pcChoice = getComputedChoice();
         const result = playRound(userChoice, pcChoice);
 
-        displayResult.textContent = `Você escolheu ${userChoice}. A máquina escolheu ${pcChoice}. Resultado: ${result}.`;
-    
-        console.log(`Você escolheu ${userChoice}`);
-        console.log(`A máquina escolheu ${pcChoice}`);
-        console.log(`Resultado: ${result}`);
+        switch(result) {
+            case 'user':
+                runningScoreUser++;
+                break;
+            case 'pc':
+                runningScorePC++;
+                break;
+            case 'draw':
+                break;
+            default:
+                return 'ERRO';
+        }
+        
+        // showing results / logs
+        displayResult.textContent = `you choose: ${userChoice} / pc choose: ${pcChoice} / winner: ${result}`;
+        displayCount.textContent = `user: ${runningScoreUser} / pc: ${runningScorePC}`;[
+        ]
+        
+        if (runningScorePC == 5 || runningScoreUser == 5) {
+            //need to implement a show winner
+
+            runningScorePC = 0;
+            runningScoreUser = 0;
+            displayCount.textContent = "";
+            displayResult.textContent = "";
+        }
+
     });
 });
