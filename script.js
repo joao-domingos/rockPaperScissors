@@ -48,6 +48,10 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+const displayResult = document.createElement("div");
+displayResult.textContent = "test";
+document.body.appendChild(displayResult);
+
 // pick all buttons with the class btnPlay and then run the game using click as a event listener
 const btnPlay = document.querySelectorAll(".btnPlay");
 
@@ -56,10 +60,11 @@ btnPlay.forEach(button => {
         const userChoice = getHumanChoice(button);
         const pcChoice = getComputedChoice();
         const result = playRound(userChoice, pcChoice);
+
+        displayResult.textContent = `Você escolheu ${userChoice}. A máquina escolheu ${pcChoice}. Resultado: ${result}.`;
     
         console.log(`Você escolheu ${userChoice}`);
         console.log(`A máquina escolheu ${pcChoice}`);
         console.log(`Resultado: ${result}`);
     });
-    
 });
